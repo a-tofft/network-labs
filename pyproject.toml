@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "Network Labs"
+version = "0.1.0"
+description = "Network Labs using containerlab & netsim-tools"
+authors = ["Anton <tofft.anton@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+netsim-tools = "^1.2.4"
+ansible = "^6.2.0"
+netmiko = "^4.1.2"

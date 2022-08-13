@@ -1,0 +1,131 @@
+{
+  "name": "test-containerlab",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "",
+      "mgmt": {
+        "network": "statics",
+        "bridge": "br-132691b61e68",
+        "ipv4-subnet": "172.100.100.0/24",
+        "ipv4-gw": "172.100.100.1",
+        "ipv6-gw": "fe80::42:68ff:fe2e:2f6e",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "pdx-rtr-eos-01": {
+      "index": "0",
+      "shortname": "pdx-rtr-eos-01",
+      "longname": "pdx-rtr-eos-01",
+      "fqdn": "pdx-rtr-eos-01.test-containerlab.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/clab-test-containerlab/pdx-rtr-eos-01",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.100.100.11",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:27:09:70",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-132691b61e68",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/clab-test-containerlab/pdx-rtr-eos-01",
+        "clab-node-name": "pdx-rtr-eos-01",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/net.clab.yml",
+        "containerlab": "test-containerlab"
+      }
+    },
+    "pdx-rtr-eos-02": {
+      "index": "1",
+      "shortname": "pdx-rtr-eos-02",
+      "longname": "pdx-rtr-eos-02",
+      "fqdn": "pdx-rtr-eos-02.test-containerlab.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/clab-test-containerlab/pdx-rtr-eos-02",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.100.100.12",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:6f:32:0c",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-132691b61e68",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/clab-test-containerlab/pdx-rtr-eos-02",
+        "clab-node-name": "pdx-rtr-eos-02",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/net.clab.yml",
+        "containerlab": "test-containerlab"
+      }
+    },
+    "pdx-rtr-eos-03": {
+      "index": "2",
+      "shortname": "pdx-rtr-eos-03",
+      "longname": "pdx-rtr-eos-03",
+      "fqdn": "pdx-rtr-eos-03.test-containerlab.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/clab-test-containerlab/pdx-rtr-eos-03",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.100.100.13",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:03:41:5d",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-132691b61e68",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/clab-test-containerlab/pdx-rtr-eos-03",
+        "clab-node-name": "pdx-rtr-eos-03",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/net.clab.yml",
+        "containerlab": "test-containerlab"
+      }
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "pdx-rtr-eos-01",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:ac:7c:e6",
+        "peer": "z"
+      },
+      "z": {
+        "node": "pdx-rtr-eos-02",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:85:82:e3",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "pdx-rtr-eos-02",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:31:ca:54",
+        "peer": "z"
+      },
+      "z": {
+        "node": "pdx-rtr-eos-03",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:1b:03:db",
+        "peer": "a"
+      }
+    }
+  ]
+}

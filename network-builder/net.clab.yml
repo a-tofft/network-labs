@@ -1,0 +1,41 @@
+name: test-containerlab
+prefix: ""
+
+mgmt:
+  network: statics
+  ipv4_subnet: 172.20.20.0/24
+
+topology:
+  kinds:
+    ceos:
+      image: ceos:4.27.5M
+    linux:
+      image: ghcr.io/hellt/network-multitool
+  nodes:
+    acme-r1:
+      kind: ceos
+      mgmt_ipv4: 172.20.20.21
+    acme-r2:
+      kind: ceos
+      mgmt_ipv4: 172.20.20.22
+    nabu-r1:
+      kind: ceos
+      mgmt_ipv4: 172.20.20.23
+    nabu-r2:
+      kind: ceos
+      mgmt_ipv4: 172.20.20.24
+#    client1:
+#      kind: linux
+#      mgmt_ipv4: 172.100.100.21
+#    client2:
+#      kind: linux
+#      mgmt_ipv4: 172.100.100.22
+  links:
+    - endpoints: ["acme-r1:eth1", "acme-r2:eth1"]
+    - endpoints: ["nabu-r1:eth1", "nabu-r2:eth1"]
+    - endpoints: ["acme-r1:eth2", "nabu-r1:eth2"]
+
+#    - endpoints: ["pdx-rtr-eos-03:eth2", "pdx-rtr-eos-04:eth1"]
+    # Client connections
+#    - endpoints: ["client1:eth1", "pdx-rtr-eos-01:eth2"]
+#    - endpoints: ["client2:eth1", "pdx-rtr-eos-04:eth2"]

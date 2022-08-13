@@ -1,0 +1,66 @@
+# Ansible inventory created from ['netsims.yaml', 'package:topology-defaults.yml']
+#
+---
+af:
+  ipv4: true
+  ipv6: true
+bgp:
+  advertise_loopback: true
+  as: 100
+  community:
+    ebgp:
+    - standard
+    ibgp:
+    - standard
+    - extended
+  ipv4: true
+  ipv6: true
+  neighbors:
+  - as: 100
+    ipv4: 10.0.0.2
+    ipv6: 200:0:0:2::1
+    name: R2
+    type: ibgp
+  next_hop_self: true
+  router_id: 10.0.0.1
+box: ceos:4.27.5M
+clab:
+  env:
+    INTFTYPE: et
+  kind: ceos
+hostname: clab-basic-topology-R1
+interfaces:
+- clab:
+    name: et1
+  ifindex: 1
+  ifname: Ethernet1
+  ipv4: 10.1.0.1/30
+  ipv6: 200::1/64
+  linkindex: 1
+  name: R1 -> R2
+  neighbors:
+  - ifname: Ethernet1
+    ipv4: 10.1.0.2/30
+    ipv6: 200::2/64
+    node: R2
+  ospf:
+    area: 0.0.0.0
+    network_type: point-to-point
+    passive: false
+  type: p2p
+loopback:
+  ipv4: 10.0.0.1/32
+  ipv6: 200:0:0:1::1/64
+mgmt:
+  ifname: Management0
+  ipv4: 192.168.121.101
+  mac: 08-4F-A9-00-00-01
+module:
+- ospf
+- bgp
+ospf:
+  af:
+    ipv4: true
+    ipv6: true
+  area: 0.0.0.0
+  router_id: 10.0.0.1

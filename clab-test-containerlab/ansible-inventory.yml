@@ -1,0 +1,10 @@
+all:
+  children:
+    ceos:
+      hosts:
+        pdx-rtr-eos-01:
+          ansible_host: 172.100.100.11
+        pdx-rtr-eos-02:
+          ansible_host: 172.100.100.12
+        pdx-rtr-eos-03:
+          ansible_host: 172.100.100.13

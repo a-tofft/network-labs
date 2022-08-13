@@ -1,0 +1,1479 @@
+addressing:
+  l2only: {}
+  lan:
+    ipv4: 172.16.0.0/16
+    prefix: 24
+  loopback:
+    ipv4: 10.0.0.0/24
+    ipv6: 200::/7
+    prefix: 32
+  mgmt:
+    ipv4: 192.168.121.0/24
+    mac: 08-4F-A9-00-00-00
+    prefix: 24
+    start: 100
+  p2p:
+    ipv4: 10.1.0.0/16
+    ipv6: 201::/7
+    prefix: 30
+  router_id:
+    ipv4: 10.0.0.0/24
+    prefix: 32
+  vrf_loopback:
+    ipv4: 10.2.0.0/24
+    prefix: 32
+bgp:
+  advertise_loopback: true
+  community:
+    ebgp:
+    - standard
+    ibgp:
+    - standard
+    - extended
+  next_hop_self: true
+defaults:
+  addressing:
+    l2only: null
+    lan:
+      ipv4: 172.16.0.0/16
+    loopback:
+      ipv4: 10.0.0.0/24
+    mgmt:
+      ipv4: 192.168.121.0/24
+      mac: 08-4F-A9-00-00-00
+      start: 100
+    p2p:
+      ipv4: 10.1.0.0/16
+    router_id:
+      ipv4: 10.0.0.0/24
+      prefix: 32
+    vrf_loopback:
+      ipv4: 10.2.0.0/24
+      prefix: 32
+  attributes:
+    global:
+    - addressing
+    - defaults
+    - groups
+    - links
+    - module
+    - name
+    - nodes
+    - plugin
+    - provider
+    internal:
+    - input
+    - includes
+    - pools
+    - Provider
+    - Plugin
+    link:
+    - bandwidth
+    - bridge
+    - name
+    - prefix
+    - role
+    - type
+    - unnumbered
+    - interfaces
+    - mtu
+    - gateway
+    - vlan_name
+    link_internal:
+    - linkindex
+    - parentindex
+    link_no_propagate:
+    - prefix
+    - interfaces
+    - gateway
+    node:
+    - role
+    - mtu
+    - runtime
+    - provider
+    - id
+    - loopback
+    - cpu
+    - memory
+  automation:
+    ansible:
+      cleanup:
+      - ansible.cfg
+      - hosts.yml
+      - group_vars
+      - host_vars
+      - config
+  bfd:
+    attributes:
+      global:
+      - min_tx
+      - min_rx
+      - min_echo_rx
+      - multiplier
+      link:
+      - min_tx
+      - min_rx
+      - min_echo_rx
+      - multiplier
+      node:
+      - min_tx
+      - min_rx
+      - min_echo_rx
+      - multiplier
+    min_echo_rx: 0
+    multiplier: 3
+    supported_on:
+    - srlinux
+    - sros
+    - iosv
+    - csr
+    - nxos
+    - eos
+  bgp:
+    advertise_loopback: true
+    advertise_roles:
+    - stub
+    attributes:
+      global:
+      - af
+      - as
+      - next_hop_self
+      - rr_cluster_id
+      - rr_list
+      - ebgp_role
+      - as_list
+      - advertise_loopback
+      - advertise_roles
+      - community
+      - address_families
+      interface:
+      - local_as
+      link:
+      - advertise
+      node:
+      - af
+      - as
+      - next_hop_self
+      - rr
+      - rr_cluster_id
+      - originate
+      - advertise_loopback
+      - community
+      - router_id
+      - address_families
+      - local_as
+      node_copy:
+      - local_as
+    community:
+      ebgp:
+      - standard
+      ibgp:
+      - standard
+      - extended
+    ebgp_role: external
+    next_hop_self: true
+    no_propagate:
+    - ebgp_role
+    - advertise_roles
+    - rr_list
+    - as_list
+    supported_on:
+    - cumulus
+    - cumulus_nvue
+    - eos
+    - frr
+    - csr
+    - iosv
+    - nxos
+    - vsrx
+    - vyos
+    - routeros
+    - srlinux
+    - sros
+    - none
+    - dellos10
+    transform_after:
+    - vlan
+  device: eos
+  devices:
+    arcos:
+      graphite:
+        icon: router
+      group_vars:
+        ansible_network_os: arcos
+        ansible_ssh_pass: arcos
+        ansible_user: root
+      interface_name: swp%d
+      libvirt:
+        image: arcos/arcos4.1.1
+      mgmt_if: ma1
+    csr:
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+        isis:
+          unnumbered:
+            ipv4: true
+            ipv6: true
+            network: true
+        mpls:
+          bgp: true
+          ldp: true
+          vpn: true
+        ospf:
+          unnumbered: true
+        vrf:
+          loopback_interface_name: Loopback{vrfidx}
+      graphite:
+        icon: router
+      group_vars:
+        ansible_become_method: enable
+        ansible_become_password: vagrant
+        ansible_connection: network_cli
+        ansible_network_os: ios
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      ifindex_offset: 2
+      interface_name: GigabitEthernet%d
+      libvirt:
+        create: virt-install --connect=qemu:///system --name=vm_box --os-type=linux
+          --os-variant=rhel4 --arch=x86_64 --cpu host --vcpus=1 --hvm --ram=4096 --disk
+          path=vm.qcow2,bus=ide,format=qcow2 --network=network:vagrant-libvirt,model=virtio
+          --graphics none --import
+        image: cisco/csr1000v
+      node:
+        min_mtu: 1500
+      virtualbox:
+        image: cisco/csr1000v
+    cumulus:
+      clab:
+        group_vars:
+          ansible_connection: docker
+          ansible_user: root
+        image: networkop/cx:4.3.0
+        mtu: 1500
+        node:
+          kind: cvx
+        runtime: docker
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+        ospf:
+          unnumbered: true
+      graphite:
+        icon: switch
+      group_vars:
+        ansible_connection: paramiko
+        ansible_network_os: cumulus
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      interface_name: swp%d
+      libvirt:
+        image: CumulusCommunity/cumulus-vx:4.4.0
+      mgmt_if: eth0
+      virtualbox:
+        image: CumulusCommunity/cumulus-vx:4.3.0
+    cumulus_nvue:
+      clab:
+        group_vars:
+          ansible_connection: docker
+          ansible_user: root
+        image: networkop/cx:5.0.1
+        mtu: 1500
+        node:
+          kind: cvx
+        runtime: docker
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+        ospf:
+          unnumbered: true
+      graphite:
+        icon: switch
+      group_vars:
+        ansible_connection: paramiko
+        ansible_network_os: cumulus_nvue
+        ansible_python_interpreter: auto_silent
+        ansible_ssh_pass: cumulus
+        ansible_user: cumulus
+      interface_name: swp%d
+      libvirt:
+        image: CumulusCommunity/cumulus-vx:5.0.1
+      mgmt_if: eth0
+      virtualbox:
+        image: CumulusCommunity/cumulus-vx:5.0.1
+    dellos10:
+      external:
+        image: none
+      features:
+        vlan:
+          model: switch
+          svi_interface_name: vlan{vlan}
+        vrf:
+          loopback_interface_name: loopback{vrfidx}
+      graphite:
+        icon: switch
+      group_vars:
+        ansible_connection: network_cli
+        ansible_network_os: dellos10
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      interface_name: ethernet1/1/%d
+      libvirt:
+        create: virt-install --connect=qemu:///system --name=vm_box --arch=x86_64
+          --cpu host --vcpus=2 --hvm --ram=2048 --network=network:vagrant-libvirt,model=virtio
+          --graphics none --import --disk path=vm.qcow2,format=qcow2,bus=sata --disk
+          path=hdb_OS10-installer.qcow2,format=qcow2,bus=virtio --disk path=hdc_OS10-platform.qcow2,format=qcow2,bus=virtio
+        image: dell/os10
+      mgmt_if: mgmt1/1/1
+    eos:
+      clab:
+        group_vars:
+          ansible_become: true
+          ansible_become_method: enable
+          ansible_ssh_pass: admin
+          ansible_user: admin
+        image: ceos:4.27.5M
+        interface:
+          name: et%d
+        mgmt_if: Management0
+        node:
+          env:
+            INTFTYPE: et
+          kind: ceos
+      description: Arista vEOS
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+          system_mtu: true
+        isis:
+          unnumbered:
+            ipv4: true
+            ipv6: true
+            network: true
+        mpls:
+          bgp: true
+          ldp: true
+          vpn: true
+        ospf:
+          unnumbered: true
+        vlan:
+          model: l3-switch
+          subif_name: '{ifname}.{subif_index}'
+          svi_interface_name: Vlan{vlan}
+        vrf:
+          loopback_interface_name: Loopback{vrfidx}
+      graphite:
+        icon: switch
+      group_vars:
+        ansible_connection: network_cli
+        ansible_network_os: eos
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      interface_name: Ethernet%d
+      libvirt:
+        create: "virt-install --connect=qemu:///system --name=vm_box --os-type=linux\
+          \ --arch=x86_64 --cpu host --vcpus=2 --hvm\n  --ram=2048 --disk path=vm.qcow2,bus=ide,format=qcow2\
+          \ --network=network:vagrant-libvirt,model=virtio --graphics none --import\n"
+        image: arista/veos
+      mgmt_if: Management1
+      virtualbox:
+        image: arista/veos
+    fortios:
+      external:
+        image: none
+      graphite:
+        icon: firewall
+      group_vars:
+        ansible_connection: httpapi
+        ansible_httpapi_port: 80
+        ansible_httpapi_use_ssl: false
+        ansible_httpapi_validate_certs: false
+        ansible_network_os: fortinet.fortios.fortios
+        ansible_password: admin
+        ansible_user: admin
+        collections:
+        - fortinet.fortios
+        netsim_console_connection: ssh
+        vdom: root
+      ifindex_offset: 2
+      interface_name: port%d
+      libvirt:
+        image: fortinet/fortios
+      mgmt_if: port1
+    frr:
+      clab:
+        image: frrouting/frr:v7.5.0
+        mtu: 1500
+        node:
+          kind: linux
+      external:
+        image: none
+      graphite:
+        icon: router
+      group_vars:
+        ansible_connection: docker
+        ansible_network_os: frr
+        ansible_python_interpreter: auto_silent
+      interface_name: eth%d
+      mgmt_if: eth0
+    iosv:
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: false
+          ipv6:
+            lla: true
+        isis:
+          unnumbered:
+            ipv4: true
+            ipv6: true
+            network: true
+        mpls:
+          bgp: true
+          ldp: true
+          vpn: true
+        ospf:
+          unnumbered: true
+        vlan:
+          mixed_trunk: true
+          model: router
+          subif_name: '{ifname}.{subif_index}'
+          svi_interface_name: BVI{bvi}
+        vrf:
+          loopback_interface_name: Loopback{vrfidx}
+      graphite:
+        icon: router
+      group_vars:
+        ansible_become_method: enable
+        ansible_become_password: vagrant
+        ansible_connection: network_cli
+        ansible_network_os: ios
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      interface_name: GigabitEthernet0/%d
+      libvirt:
+        create: virt-install --connect=qemu:///system --name=vm_box --os-type=linux
+          --arch=x86_64 --cpu host --vcpus=1 --noacpi --machine=pc-1.0 --virt-type=kvm
+          --watchdog i6300esb,action=reset --ram=512 --disk path=vm.qcow2,bus=virtio,format=qcow2,cache=writethrough
+          --network=network:vagrant-libvirt,model=e1000 --graphics none --import
+        image: cisco/iosv
+      virtualbox:
+        image: cisco/iosv
+    linux:
+      clab:
+        group_vars:
+          ansible_connection: docker
+          ansible_user: root
+          netlab_linux_distro: vanilla
+        image: python:3.9-alpine
+        mtu: 1500
+        node:
+          kind: linux
+      external:
+        image: none
+      graphite:
+        icon: server
+      group_vars:
+        ansible_connection: paramiko
+        ansible_network_os: linux
+        ansible_python_interpreter: auto_silent
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+        docker_shell: sh
+      interface_name: eth%d
+      libvirt:
+        group_vars:
+          netlab_linux_distro: ubuntu
+        image: generic/ubuntu2004
+      mgmt_if: eth0
+      role: host
+      virtualbox:
+        group_vars:
+          netlab_linux_distro: ubuntu
+        image: generic/ubuntu2004
+    none:
+      external:
+        image: none
+      features:
+        vlan:
+          model: switch
+          subif_name: '{ifname}.{vlan.access_id}'
+          svi_interface_name: Vlan{vlan}
+      group_vars:
+        ansible_connection: paramiko_ssh
+        ansible_network_os: none
+      interface_name: eth%d
+      libvirt:
+        image: none
+      virtualbox:
+        image: none
+    nxos:
+      bfd:
+        min_rx: 500
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+        isis:
+          unnumbered:
+            ipv4: true
+            ipv6: true
+        ospf:
+          unnumbered: true
+      graphite:
+        icon: nexus5000
+      group_vars:
+        ansible_connection: network_cli
+        ansible_network_os: nxos
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      interface_name: Ethernet1/%d
+      libvirt:
+        create_template: nxos.xml.j2
+        image: cisco/nexus9300v
+      mgmt_if: mgmt0
+      virtualbox:
+        image: cisco/nexus9300v
+    routeros:
+      external:
+        image: none
+      features:
+        mpls:
+          ldp: true
+          vpn: true
+        vlan:
+          model: router
+          subif_name: '{ifname}-{vlan.access_id}'
+          svi_interface_name: bridge{vlan}
+      graphite:
+        icon: router
+      group_vars:
+        ansible_connection: network_cli
+        ansible_network_os: routeros
+        ansible_ssh_pass: admin
+        ansible_user: admin
+      ifindex_offset: 2
+      interface_name: ether%d
+      libvirt:
+        image: mikrotik/chr
+      mgmt_if: ether1
+    srlinux:
+      bfd:
+        min_rx: 100
+        min_tx: 100
+      clab:
+        group_vars:
+          srlinux_grpc_port: 57400
+        image: ghcr.io/nokia/srlinux
+        interface:
+          name: e1-%d
+        node:
+          kind: srl
+          type: ixrd2
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: false
+          ipv6:
+            lla: true
+          system_mtu: true
+        isis:
+          unnumbered:
+            ipv4: false
+            ipv6: true
+            network: false
+        ospf:
+          unnumbered: false
+        vlan:
+          model: router
+          subif_name: '{ifname}.{subif_index}'
+          svi_interface_name: '{ifname}.{vlan}'
+      graphite:
+        icon: router
+      group_vars:
+        ansible_connection: paramiko
+        ansible_network_os: srlinux
+        ansible_ssh_pass: admin
+        ansible_user: admin
+        netsim_console_connection: ssh
+      interface_name: ethernet-1/%d
+      mgmt_if: mgmt0
+      sr:
+        ipv6_sid_offset: 100
+        srgb_range_size: 1000
+        srgb_range_start: 500000
+    sros:
+      bfd:
+        min_rx: 100
+        min_tx: 100
+      bgp:
+        address_families:
+          ebgp:
+          - ipv4
+          - ipv6
+          ibgp:
+          - ipv4
+          - ipv6
+      clab:
+        group_vars:
+          sros_grpc_port: 57400
+        image: vrnetlab/vr-sros
+        interface:
+          name: eth%d
+        node:
+          kind: vr-sros
+          license: /Projects/SR_OS_VSR-SIM_license.txt
+          type: sr-1
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+        isis:
+          unnumbered:
+            ipv4: true
+            ipv6: true
+            network: false
+        ospf:
+          unnumbered: true
+      graphite:
+        icon: router
+      group_vars:
+        ansible_connection: paramiko_ssh
+        ansible_network_os: sros
+        ansible_ssh_pass: admin
+        ansible_user: admin
+        netsim_console_connection: ssh
+        sros_use_openconfig: false
+      interface_name: 1/1/c%d
+      mgmt_if: A/1
+      sr:
+        ipv6_sid_offset: 100
+        srgb_range_size: 1000
+        srgb_range_start: 500000
+    vsrx:
+      external:
+        image: none
+      features:
+        initial:
+          ipv4:
+            unnumbered: true
+          ipv6:
+            lla: true
+        isis:
+          unnumbered:
+            ipv4: true
+            ipv6: true
+        ospf:
+          unnumbered: true
+      graphite:
+        icon: firewall
+      group_vars:
+        ansible_connection: netconf
+        ansible_network_os: junos
+        ansible_ssh_pass: Vagrant
+        ansible_user: vagrant
+        netsim_console_connection: ssh
+      ifindex_offset: 0
+      interface_name: ge-0/0/%d
+      libvirt:
+        create: virt-install --connect=qemu:///system --name=vm_box --os-variant=freebsd10
+          --arch=x86_64 --cpu host --vcpus=2 --hvm --ram=4096 --disk path=vm.qcow2,bus=ide,format=qcow2
+          --disk path=bootstrap.iso,device=cdrom,bus=ide --boot hd --network=network:vagrant-libvirt,model=virtio
+          --graphics none --import
+        create_iso: vsrx
+        image: juniper/vsrx3
+      mgmt_if: fxp0
+      virtualbox:
+        image: juniper/vsrx3
+    vyos:
+      external:
+        image: none
+      features:
+        mpls:
+          ldp: true
+          vpn: true
+        vlan:
+          model: l3-switch
+          subif_name: '{ifname}.{vlan.access_id}'
+          svi_interface_name: br0.{vlan}
+        vrf:
+          loopback_interface_name: dum{vrfidx}
+      graphite:
+        icon: router
+      group_vars:
+        ansible_connection: paramiko
+        ansible_network_os: vyos
+        ansible_ssh_pass: vagrant
+        ansible_user: vagrant
+      interface_name: eth%d
+      libvirt:
+        image: vyos/vyos
+      mgmt_if: eth0
+  eigrp:
+    as: 1
+    attributes:
+      global:
+      - af
+      - as
+      link:
+      - passive
+      node:
+      - af
+      - as
+    supported_on:
+    - csr
+    - iosv
+    - nxos
+    transform_after:
+    - vlan
+    - vrf
+  evpn:
+    attributes:
+      global:
+      - use_ibgp
+    requires:
+    - bgp
+    supported_on:
+    - sros
+    - srlinux
+    - frr
+    transform_after:
+    - vlan
+    use_ibgp: true
+  isis:
+    area: 49.0001
+    attributes:
+      global:
+      - af
+      - area
+      - type
+      - bfd
+      link:
+      - metric
+      - cost
+      - type
+      - bfd
+      - network_type
+      - passive
+      node:
+      - af
+      - area
+      - net
+      - type
+      - bfd
+    supported_on:
+    - eos
+    - frr
+    - csr
+    - iosv
+    - nxos
+    - vsrx
+    - srlinux
+    - sros
+    - none
+    transform_after:
+    - vlan
+    - vrf
+    type: level-2
+  module:
+  - ospf
+  - bgp
+  mpls:
+    attributes:
+      global:
+      - ldp
+      - bgp
+      - vpn
+      link:
+      - ldp
+      node:
+      - ldp
+      - bgp
+      - vpn
+    config_after:
+    - vlan
+    - ospf
+    - isis
+    - bgp
+    ldp: true
+    supported_on:
+    - eos
+    - iosv
+    - csr
+    - routeros
+    - vyos
+    transform_after:
+    - vlan
+    - bgp
+  name: basic-topology
+  ospf:
+    area: 0.0.0.0
+    attributes:
+      global:
+      - af
+      - area
+      - process
+      - reference_bandwidth
+      - bfd
+      link:
+      - cost
+      - area
+      - bfd
+      - network_type
+      - passive
+      node:
+      - af
+      - area
+      - process
+      - reference_bandwidth
+      - bfd
+      - router_id
+      node_copy:
+      - area
+    supported_on:
+    - arcos
+    - cumulus
+    - cumulus_nvue
+    - eos
+    - fortios
+    - frr
+    - csr
+    - iosv
+    - nxos
+    - vsrx
+    - vyos
+    - routeros
+    - srlinux
+    - sros
+    - none
+    - dellos10
+    transform_after:
+    - vlan
+    - vrf
+  outputs:
+    graph:
+      as_clusters: true
+      colors:
+        as: '#e8e8e8'
+        ebgp: '#b21a1a'
+        ibgp: '#613913'
+        node: '#ff9f01'
+        stub: '#d1bfab'
+      interface_labels: false
+      margins:
+        as: 16
+      node_address_label: true
+    provider: {}
+    yaml=netlab.snapshot.yml:
+      filename: {}
+  ports:
+    gnmi: 57400
+    http: 80
+    https: 443
+    netconf: 830
+    ssh: 22
+  processor: b'GenuineIntel'
+  provider: clab
+  providers:
+    clab:
+      bridge_type: bridge
+      cleanup:
+      - clab.yml
+      config: clab.yml
+      probe:
+      - containerlab version
+      start: sudo -E containerlab deploy -t clab.yml
+      stop: sudo -E containerlab destroy --cleanup -t clab.yml
+      template: clab.j2
+    external:
+      cleanup:
+      - external.txt
+      config: external.txt
+      probe: []
+      start: echo 'Enjoy!'
+      stop: echo 'What?'
+      template: external.j2
+    libvirt:
+      cleanup:
+      - Vagrantfile
+      config: Vagrantfile
+      probe:
+      - kvm-ok
+      - virsh net-list
+      - vagrant plugin list
+      start: vagrant up --provider libvirt
+      stop: vagrant destroy -f
+    virtualbox:
+      cleanup:
+      - Vagrantfile
+      config: Vagrantfile
+      forwarded:
+        http: 8000
+        netconf: 3000
+        ssh: 2000
+      inventory:
+        ansible_host: 127.0.0.1
+      inventory_port_map:
+        ssh: ansible_port
+      probe:
+      - VBoxManage -h
+      - vagrant plugin list
+      start: vagrant up --provider virtualbox
+      stop: vagrant destroy -f
+  sr:
+    attributes:
+      global:
+      - srgb_range_start
+      - srgb_range_size
+      - ipv6_sid_offset
+      node:
+      - srgb_range_start
+      - srgb_range_size
+      - ipv6_sid_offset
+    requires:
+    - isis
+    supported_on:
+    - csr
+    - eos
+    - srlinux
+    - sros
+    - vsrx
+    transform_after:
+    - vlan
+  srv6:
+    address_families:
+    - ipv4
+    - ipv6
+    attributes:
+      global:
+      - locator
+      - address_families
+      - bgp
+      - isis
+      node:
+      - locator
+      - address_families
+      - bgp
+      - isis
+      - transit_only
+    bgp: false
+    isis: true
+    locator: 2001:db8:aaaa
+    requires:
+    - isis
+    supported_on:
+    - sros
+    transform_after:
+    - vlan
+  vlan:
+    attributes:
+      extra:
+        global:
+        - vlans
+        node:
+        - vlans
+      global:
+      - mode
+      link:
+      - access
+      - native
+      - mode
+      - trunk
+      node:
+      - mode
+      vlans:
+      - id
+      - vni
+      - vrf
+      - prefix
+      - pool
+    no_propagate:
+    - start_vlan_id
+    - start_vni
+    start_vlan_id: 1000
+    start_vni: 100000
+    supported_on:
+    - eos
+    - iosv
+    - vyos
+    - dellos10
+    - srlinux
+    - none
+    - routeros
+  vrf:
+    as: 65000
+    attributes:
+      extra:
+        global:
+        - vrfs
+      global:
+      - as
+      - loopback
+      interface: str
+      link: str
+      node:
+      - as
+      - loopback
+    config_after:
+    - vlan
+    - ospf
+    - isis
+    - bgp
+    - mpls
+    supported_on:
+    - eos
+    - iosv
+    - csr
+    - routeros
+    - dellos10
+    - vyos
+    - cumulus_nvue
+    transform_after:
+    - vlan
+    - bgp
+groups:
+  as100:
+    members:
+    - R1
+    - R2
+  as200:
+    members:
+    - R3
+    - R4
+includes:
+- defaults
+- global_defaults
+input:
+- netsims.yaml
+- package:topology-defaults.yml
+links:
+- interfaces:
+  - ifindex: 1
+    ipv4: 10.1.0.1/30
+    ipv6: 200::1/64
+    node: R1
+  - ifindex: 1
+    ipv4: 10.1.0.2/30
+    ipv6: 200::2/64
+    node: R2
+  left:
+    ifname: Ethernet1
+    ipv4: 10.1.0.1/30
+    ipv6: 200::1/64
+    node: R1
+  linkindex: 1
+  name: R1 - R2
+  node_count: 2
+  prefix:
+    ipv4: 10.1.0.0/30
+    ipv6: 200::/64
+  right:
+    ifname: Ethernet1
+    ipv4: 10.1.0.2/30
+    ipv6: 200::2/64
+    node: R2
+  type: p2p
+- interfaces:
+  - ifindex: 2
+    ipv4: 10.1.0.5/30
+    ipv6: 200:0:0:1::1/64
+    node: R2
+  - ifindex: 1
+    ipv4: 10.1.0.6/30
+    ipv6: 200:0:0:1::2/64
+    node: R3
+  left:
+    ifname: Ethernet2
+    ipv4: 10.1.0.5/30
+    ipv6: 200:0:0:1::1/64
+    node: R2
+  linkindex: 2
+  name: R2 - R3
+  node_count: 2
+  prefix:
+    ipv4: 10.1.0.4/30
+    ipv6: 200:0:0:1::/64
+  right:
+    ifname: Ethernet1
+    ipv4: 10.1.0.6/30
+    ipv6: 200:0:0:1::2/64
+    node: R3
+  role: external
+  type: p2p
+- interfaces:
+  - ifindex: 2
+    ipv4: 10.1.0.9/30
+    ipv6: 200:0:0:2::1/64
+    node: R3
+  - ifindex: 1
+    ipv4: 10.1.0.10/30
+    ipv6: 200:0:0:2::2/64
+    node: R4
+  left:
+    ifname: Ethernet2
+    ipv4: 10.1.0.9/30
+    ipv6: 200:0:0:2::1/64
+    node: R3
+  linkindex: 3
+  name: R3 - R4
+  node_count: 2
+  prefix:
+    ipv4: 10.1.0.8/30
+    ipv6: 200:0:0:2::/64
+  right:
+    ifname: Ethernet1
+    ipv4: 10.1.0.10/30
+    ipv6: 200:0:0:2::2/64
+    node: R4
+  type: p2p
+module:
+- ospf
+- bgp
+name: basic-topology
+nodes:
+  R1:
+    af:
+      ipv4: true
+      ipv6: true
+    bgp:
+      advertise_loopback: true
+      as: 100
+      community:
+        ebgp:
+        - standard
+        ibgp:
+        - standard
+        - extended
+      ipv4: true
+      ipv6: true
+      neighbors:
+      - as: 100
+        ipv4: 10.0.0.2
+        ipv6: 200:0:0:2::1
+        name: R2
+        type: ibgp
+      next_hop_self: true
+      router_id: 10.0.0.1
+    box: ceos:4.27.5M
+    clab:
+      env:
+        INTFTYPE: et
+      kind: ceos
+    device: eos
+    hostname: clab-basic-topology-R1
+    id: 1
+    interfaces:
+    - clab:
+        name: et1
+      ifindex: 1
+      ifname: Ethernet1
+      ipv4: 10.1.0.1/30
+      ipv6: 200::1/64
+      linkindex: 1
+      name: R1 -> R2
+      neighbors:
+      - ifname: Ethernet1
+        ipv4: 10.1.0.2/30
+        ipv6: 200::2/64
+        node: R2
+      ospf:
+        area: 0.0.0.0
+        network_type: point-to-point
+        passive: false
+      type: p2p
+    loopback:
+      ipv4: 10.0.0.1/32
+      ipv6: 200:0:0:1::1/64
+    mgmt:
+      ifname: Management0
+      ipv4: 192.168.121.101
+      mac: 08-4F-A9-00-00-01
+    module:
+    - ospf
+    - bgp
+    name: R1
+    ospf:
+      af:
+        ipv4: true
+        ipv6: true
+      area: 0.0.0.0
+      router_id: 10.0.0.1
+  R2:
+    af:
+      ipv4: true
+      ipv6: true
+    bgp:
+      advertise_loopback: true
+      as: 100
+      community:
+        ebgp:
+        - standard
+        ibgp:
+        - standard
+        - extended
+      ipv4: true
+      ipv6: true
+      neighbors:
+      - as: 100
+        ipv4: 10.0.0.1
+        ipv6: 200:0:0:1::1
+        name: R1
+        type: ibgp
+      - as: 200
+        ifindex: 2
+        ipv4: 10.1.0.6
+        ipv6: 200:0:0:1::2
+        name: R3
+        type: ebgp
+      next_hop_self: true
+      router_id: 10.0.0.2
+    box: ceos:4.27.5M
+    clab:
+      env:
+        INTFTYPE: et
+      kind: ceos
+    device: eos
+    hostname: clab-basic-topology-R2
+    id: 2
+    interfaces:
+    - clab:
+        name: et1
+      ifindex: 1
+      ifname: Ethernet1
+      ipv4: 10.1.0.2/30
+      ipv6: 200::2/64
+      linkindex: 1
+      name: R2 -> R1
+      neighbors:
+      - ifname: Ethernet1
+        ipv4: 10.1.0.1/30
+        ipv6: 200::1/64
+        node: R1
+      ospf:
+        area: 0.0.0.0
+        network_type: point-to-point
+        passive: false
+      type: p2p
+    - clab:
+        name: et2
+      ifindex: 2
+      ifname: Ethernet2
+      ipv4: 10.1.0.5/30
+      ipv6: 200:0:0:1::1/64
+      linkindex: 2
+      name: R2 -> R3
+      neighbors:
+      - ifname: Ethernet1
+        ipv4: 10.1.0.6/30
+        ipv6: 200:0:0:1::2/64
+        node: R3
+      role: external
+      type: p2p
+    loopback:
+      ipv4: 10.0.0.2/32
+      ipv6: 200:0:0:2::1/64
+    mgmt:
+      ifname: Management0
+      ipv4: 192.168.121.102
+      mac: 08-4F-A9-00-00-02
+    module:
+    - ospf
+    - bgp
+    name: R2
+    ospf:
+      af:
+        ipv4: true
+        ipv6: true
+      area: 0.0.0.0
+      router_id: 10.0.0.2
+  R3:
+    af:
+      ipv4: true
+      ipv6: true
+    bgp:
+      advertise_loopback: true
+      as: 200
+      community:
+        ebgp:
+        - standard
+        ibgp:
+        - standard
+        - extended
+      ipv4: true
+      ipv6: true
+      neighbors:
+      - as: 200
+        ipv4: 10.0.0.4
+        ipv6: 200:0:0:4::1
+        name: R4
+        type: ibgp
+      - as: 100
+        ifindex: 1
+        ipv4: 10.1.0.5
+        ipv6: 200:0:0:1::1
+        name: R2
+        type: ebgp
+      next_hop_self: true
+      router_id: 10.0.0.3
+    box: ceos:4.27.5M
+    clab:
+      env:
+        INTFTYPE: et
+      kind: ceos
+    device: eos
+    hostname: clab-basic-topology-R3
+    id: 3
+    interfaces:
+    - clab:
+        name: et1
+      ifindex: 1
+      ifname: Ethernet1
+      ipv4: 10.1.0.6/30
+      ipv6: 200:0:0:1::2/64
+      linkindex: 2
+      name: R3 -> R2
+      neighbors:
+      - ifname: Ethernet2
+        ipv4: 10.1.0.5/30
+        ipv6: 200:0:0:1::1/64
+        node: R2
+      role: external
+      type: p2p
+    - clab:
+        name: et2
+      ifindex: 2
+      ifname: Ethernet2
+      ipv4: 10.1.0.9/30
+      ipv6: 200:0:0:2::1/64
+      linkindex: 3
+      name: R3 -> R4
+      neighbors:
+      - ifname: Ethernet1
+        ipv4: 10.1.0.10/30
+        ipv6: 200:0:0:2::2/64
+        node: R4
+      ospf:
+        area: 0.0.0.0
+        network_type: point-to-point
+        passive: false
+      type: p2p
+    loopback:
+      ipv4: 10.0.0.3/32
+      ipv6: 200:0:0:3::1/64
+    mgmt:
+      ifname: Management0
+      ipv4: 192.168.121.103
+      mac: 08-4F-A9-00-00-03
+    module:
+    - ospf
+    - bgp
+    name: R3
+    ospf:
+      af:
+        ipv4: true
+        ipv6: true
+      area: 0.0.0.0
+      router_id: 10.0.0.3
+  R4:
+    af:
+      ipv4: true
+      ipv6: true
+    bgp:
+      advertise_loopback: true
+      as: 200
+      community:
+        ebgp:
+        - standard
+        ibgp:
+        - standard
+        - extended
+      ipv4: true
+      ipv6: true
+      neighbors:
+      - as: 200
+        ipv4: 10.0.0.3
+        ipv6: 200:0:0:3::1
+        name: R3
+        type: ibgp
+      next_hop_self: true
+      router_id: 10.0.0.4
+    box: ceos:4.27.5M
+    clab:
+      env:
+        INTFTYPE: et
+      kind: ceos
+    device: eos
+    hostname: clab-basic-topology-R4
+    id: 4
+    interfaces:
+    - clab:
+        name: et1
+      ifindex: 1
+      ifname: Ethernet1
+      ipv4: 10.1.0.10/30
+      ipv6: 200:0:0:2::2/64
+      linkindex: 3
+      name: R4 -> R3
+      neighbors:
+      - ifname: Ethernet2
+        ipv4: 10.1.0.9/30
+        ipv6: 200:0:0:2::1/64
+        node: R3
+      ospf:
+        area: 0.0.0.0
+        network_type: point-to-point
+        passive: false
+      type: p2p
+    loopback:
+      ipv4: 10.0.0.4/32
+      ipv6: 200:0:0:4::1/64
+    mgmt:
+      ifname: Management0
+      ipv4: 192.168.121.104
+      mac: 08-4F-A9-00-00-04
+    module:
+    - ospf
+    - bgp
+    name: R4
+    ospf:
+      af:
+        ipv4: true
+        ipv6: true
+      area: 0.0.0.0
+      router_id: 10.0.0.4
+ospf:
+  area: 0.0.0.0
+provider: clab

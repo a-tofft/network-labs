@@ -1,0 +1,40 @@
+name: basic-topology
+provider: clab
+defaults:
+  device: eos
+  devices:
+    eos.clab.image: ceos:4.27.5M
+
+
+addressing:
+  loopback:
+    ipv4: 10.0.0.0/24
+    ipv6: 200::/7
+  router_id:
+    ipv4: 10.0.0.0/24
+    prefix: 32
+  p2p:
+    ipv4: 10.1.0.0/16
+    prefix: 30
+    ipv6: 201::/7
+
+module: [ospf]
+
+nodes:
+  - name: R1
+    module: [ospf,bgp]
+    bgp.as: 100
+  - name: R2
+    module: [ospf,bgp]
+    bgp.as: 100
+  - name: R3
+    module: [ospf,bgp]
+    bgp.as: 200
+  - name: R4
+    module: [ospf,bgp]
+    bgp.as: 200
+
+links:
+  - R1-R2
+  - R2-R3
+  - R3-R4

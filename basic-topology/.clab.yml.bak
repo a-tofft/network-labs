@@ -1,0 +1,37 @@
+name: basic-topology
+
+topology:
+  nodes:
+    R1:
+      kind: ceos
+      image: ceos:4.27.5M
+      group: as100
+      env: {'INTFTYPE': 'et'}
+    R2:
+      kind: ceos
+      image: ceos:4.27.5M
+      group: as100
+      env: {'INTFTYPE': 'et'}
+    R3:
+      kind: ceos
+      image: ceos:4.27.5M
+      group: as200
+      env: {'INTFTYPE': 'et'}
+    R4:
+      kind: ceos
+      image: ceos:4.27.5M
+      group: as200
+      env: {'INTFTYPE': 'et'}
+
+
+  links:
+  - endpoints:
+    - "R1:et1"
+    - "R2:et1"
+  - endpoints:
+    - "R2:et2"
+    - "R3:et1"
+  - endpoints:
+    - "R3:et2"
+    - "R4:et1"
+

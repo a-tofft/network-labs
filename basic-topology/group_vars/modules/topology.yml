@@ -1,0 +1,6 @@
+# Ansible inventory created from ['netsims.yaml', 'package:topology-defaults.yml']
+#
+---
+netlab_module:
+- ospf
+- bgp
