@@ -1,0 +1,12 @@
+all:
+  children:
+    ceos:
+      hosts:
+        acme-r1:
+          ansible_host: 172.20.20.21
+        acme-r2:
+          ansible_host: 172.20.20.22
+        nabu-r1:
+          ansible_host: 172.20.20.23
+        nabu-r2:
+          ansible_host: 172.20.20.24

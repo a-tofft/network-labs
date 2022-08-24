@@ -1,0 +1,171 @@
+{
+  "name": "network-builder",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "",
+      "mgmt": {
+        "network": "statics",
+        "bridge": "br-c936f4f5f128",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "mtu": "1500",
+        "external-access": true
+      }
+    }
+  },
+  "nodes": {
+    "acme-r1": {
+      "index": "0",
+      "shortname": "acme-r1",
+      "longname": "acme-r1",
+      "fqdn": "acme-r1.network-builder.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/network-builder/clab-network-builder/acme-r1",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.21",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:11:ef:36",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c936f4f5f128",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/network-builder/clab-network-builder/acme-r1",
+        "clab-node-name": "acme-r1",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/network-builder/clab.yml",
+        "containerlab": "network-builder"
+      }
+    },
+    "acme-r2": {
+      "index": "1",
+      "shortname": "acme-r2",
+      "longname": "acme-r2",
+      "fqdn": "acme-r2.network-builder.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/network-builder/clab-network-builder/acme-r2",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.22",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:c3:65:90",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c936f4f5f128",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/network-builder/clab-network-builder/acme-r2",
+        "clab-node-name": "acme-r2",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/network-builder/clab.yml",
+        "containerlab": "network-builder"
+      }
+    },
+    "nabu-r1": {
+      "index": "2",
+      "shortname": "nabu-r1",
+      "longname": "nabu-r1",
+      "fqdn": "nabu-r1.network-builder.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/network-builder/clab-network-builder/nabu-r1",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.23",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:99:8e:2b",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c936f4f5f128",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/network-builder/clab-network-builder/nabu-r1",
+        "clab-node-name": "nabu-r1",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/network-builder/clab.yml",
+        "containerlab": "network-builder"
+      }
+    },
+    "nabu-r2": {
+      "index": "3",
+      "shortname": "nabu-r2",
+      "longname": "nabu-r2",
+      "fqdn": "nabu-r2.network-builder.io",
+      "group": "",
+      "labdir": "/home/anton/network-labs/network-builder/clab-network-builder/nabu-r2",
+      "kind": "ceos",
+      "image": "ceos:4.27.5M",
+      "mgmt-net": "",
+      "mgmt-intf": "Management0",
+      "mgmt-ipv4-address": "172.20.20.24",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "00:1c:73:2a:2c:18",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-c936f4f5f128",
+        "clab-node-group": "",
+        "clab-node-kind": "ceos",
+        "clab-node-lab-dir": "/home/anton/network-labs/network-builder/clab-network-builder/nabu-r2",
+        "clab-node-name": "nabu-r2",
+        "clab-node-type": "",
+        "clab-topo-file": "/home/anton/network-labs/network-builder/clab.yml",
+        "containerlab": "network-builder"
+      }
+    }
+  },
+  "links": [
+    {
+      "a": {
+        "node": "acme-r1",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:6f:51:0b",
+        "peer": "z"
+      },
+      "z": {
+        "node": "acme-r2",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:b9:ad:cf",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "nabu-r1",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:ad:08:f6",
+        "peer": "z"
+      },
+      "z": {
+        "node": "nabu-r2",
+        "interface": "eth1",
+        "mac": "aa:c1:ab:ca:17:b7",
+        "peer": "a"
+      }
+    },
+    {
+      "a": {
+        "node": "acme-r2",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:0f:e1:b0",
+        "peer": "z"
+      },
+      "z": {
+        "node": "nabu-r2",
+        "interface": "eth2",
+        "mac": "aa:c1:ab:0e:98:89",
+        "peer": "a"
+      }
+    }
+  ]
+}
